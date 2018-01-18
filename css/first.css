@@ -1,0 +1,15 @@
+body {
+  background-color: #36393e;
+}
+
+.login,
+.signup,
+.welcome {
+  position:absolute;
+  top: 40%;
+  left: 50%;
+  width: 30em;
+  margin-top: -9em;
+  margin-left: -15em;
+  border-radius: 5%;
+}

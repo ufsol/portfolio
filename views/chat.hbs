@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="css/welcome.css">
+
+<div class="title">
+  <div class="cont">
+
+    <div>
+      <h1>socket.io chat app</h1>
+    </div>
+
+    <div class="user">
+      <span>Hello {{name}}, you are now signed in.</span>
+      <form method="post">
+        <div class="form-group" action="/logout">
+            <button type="submit" class="btn btn-primary btn-block">Logout</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<div class="mainC">
+  <div class="chatDiv">
+    <div class="chatWindow"></div>
+    <div class="users"></div>
+
+  </div>
+</div>
+
+<div class="messaging">
+  <form class="messageForm" method="post">
+    <input id="message" size="35" pattern=".{1,}" placeholder="placeholder" onfocus="this.placeholder = ''" onblur="this.placeholder = 'placeholder'" required title="Minimum 1 character!">
+    <input id="send" type="submit" value="send">
+  </form>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+<script>
+  $(function() {
+    var socket = io.connect();
+    var messageForm = $(".messageForm");
+    var message = $("#message");
+    var chat = $(".chatWindow");
+    var users = $(".users");
+
+    socket.on("login", function(data){
+      if (data.user == "{{name}}") {
+          data.user = "You";
+      }
+      var html = "";
+      for (i = 0; i < data.users.length; i++) {
+        html += data.users[i] + "<br>";
+      }
+      users.html(html);
+    });
+
+    messageForm.submit(function(e){
+      e.preventDefault();
+      socket.emit("message", message.val());
+      message.val("");
+    });
+
+    socket.on("new message", function(data){
+      chat.append("<strong>" + data.user + "</strong>: " + data.msg + "<br>");
+    });
+  });
+</script>

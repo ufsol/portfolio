@@ -1,0 +1,23 @@
+<div id="notice">
+
+  <div id="successDiv" class="container text-center well" ng-if="data[0].success">
+    <p><i class="fa fa-check-circle" aria-hidden="true"></i> {{"You successfully sent your message."}}</p>
+  </div>
+
+  <div ng-if="data[1]" ng-repeat="n in data[1]" class="errorDiv container text-center well">
+    <p><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{n.msg}}</p>
+  </div>
+
+</div>
+
+<div class="container" ng-mouseover="pop()">
+    <form id="myform" method="post" action="/submit" class="text-center">
+      <input type="text" name="name" pattern=".{3,}" placeholder="NAME" onfocus="this.placeholder = ''" onblur="this.placeholder = 'NAME'" required title="Minimum 3 characters!"><br>
+      <input type="email" name="email" pattern="[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*" placeholder="EMAIL ADDRESS" onfocus="this.placeholder = ''" onblur="this.placeholder = 'EMAIL ADDRESS'" required><br>
+      <textarea rows="4" name="message" type="text" maxlength="2000" cols="50" placeholder="WRITE YOUR MESSAGE HERE" onfocus="this.placeholder = ''" onblur="this.placeholder = 'WRITE YOUR MESSAGE HERE'" required></textarea>
+      <input type="submit" value="SEND">
+    </form>
+    <div id="formImg">
+        <img data-toggle="tooltip" data-placement="right" title="I am watching you type, make sure you spell correctly." src="/resources/logo2.png">
+    </div>
+</div>
